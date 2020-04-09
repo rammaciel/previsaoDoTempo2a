@@ -7,8 +7,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="tb_previsao")
 public class Previsao implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -16,8 +20,9 @@ public class Previsao implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(name="DIASEMANA")
-	private String diaSemana;
+	@OneToOne(optional=false)
+	@JoinColumn(name="id_do_dia_da_semana")
+	private DiasDaSemana diasDaSemana;
 	
 	@Column(name="TEMPMIN")
 	private Double tempMin;
@@ -70,14 +75,6 @@ public class Previsao implements Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public String getDiaSemana() {
-		return diaSemana;
-	}
-
-	public void setDiaSemana(String diaSemana) {
-		this.diaSemana = diaSemana;
 	}
 
 	public Double getTempMin() {
